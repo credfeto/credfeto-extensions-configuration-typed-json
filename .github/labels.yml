@@ -1,0 +1,5 @@
+"Config Change":
+ - any: [ 'src/**/*.json', '!src/global.json' ]
+
+"Github Actions":
+ - any: [ '.github/workflows/*.yml' ]
