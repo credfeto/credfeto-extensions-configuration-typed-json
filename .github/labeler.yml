@@ -1,43 +1,38 @@
 "C#":
-    - src/**/*.cs
-    - src/**/*.csproj
-
+ - any: [ './**/*.cs', './**/*.csproj' ]
+"C# Project":
+ - any: [ './**/*.csproj' ]
+"C# Solution":
+ - any: [ './**/*.sln' ]
+"Powershell":
+ - any: [ './**/*.ps1', './**/*.psm1' ]
 "SQL":
-    - db/**/*
-    - tools/**/*.sql
-
+ - any: [ './**/*.sql', 'db/**/*' ]
 "Solidity":
-    - src/**/*.sol
-
+ - any: [ './**/*.sol' ]
 "unit-tests":
-    - src/*.Tests.*/**/*
-    - src/*.Tests.Integration.*/**/*
-    - src/*.Tests/**/*
-    - src/*.Tests.Integration/**/*
-
+ - any: [ 'src/*.Tests.*/**/*', 'src/*.Tests.Integration.*/**/*', 'src/*.Tests.Integration/**/*', 'src/*.Tests/**/*' ]
 ".NET update":
-    - src/global.json
-
+ - any: [ 'src/global.json' ]
 "Config Change":
-    - src/**/*.json
-
+ - any: [ 'src/**/*.json', '!src/global.json' ]
 "Static Code Analysis Rules":
-    - src/CodeAnalysis.ruleset
-
+ - any: [ 'src/CodeAnalysis.ruleset' ]
 "Migration Script":
-    - tools/MigrationScripts/**/*
-
+ - any: [ 'tools/MigrationScripts/**/*' ]
 "Legal Text":
-    - tools/LegalText/**/*
-
+ - any: [ 'tools/LegalText/**/*' ]
 "Change Log":
-    - CHANGELOG.md
-
+ - any: [ 'CHANGELOG.md' ]
 "Read Me":
-    - README.md
-
+ - any: [ 'README.md' ]
 "Setup":
-    - SETUP.md
-
+ - any: [ 'SETUP.md' ]
+"Markdown":
+ - any: [ './**/*.md' ]
 "github-actions":
-    - ".github/workflows/*.yml"
+ - any: [ '.github/workflows/*.yml' ]
+"Credfeto.Extensions.Configuration.Typed.Json":
+ - any: [ 'src/Credfeto.Extensions.Configuration.Typed.Json/**/*' ]
+"Tests":
+ - any: [ 'src/Credfeto.Extensions.Configuration.Typed.Json.Tests/**/*' ]
