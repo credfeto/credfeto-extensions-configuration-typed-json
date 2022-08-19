@@ -89,4 +89,15 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
                                       .WithConfiguration(configurationRoot: configuration, key: sectionKey, jsonSerializerContext: jsonSerializerContext, validator: validator)
                                       .BuildServiceProvider();
     }
+
+    [Fact]
+    public void SimpleObjectWithArrayOfStringsIsValid()
+    {
+        IOptions<SimpleObjectWithArrayOfStrings> configuration = GetSetting(new Dictionary<string, string> { ["banana:items:0"] = "Qwertyuiop" },
+                                                                            sectionKey: "banana",
+                                                                            new SimpleObjectWithArrayOfStringsValidator());
+
+        Assert.Single(configuration.Value.Items);
+        Assert.Equal(expected: "Qwertyuiop", configuration.Value.Items[0]);
+    }
 }

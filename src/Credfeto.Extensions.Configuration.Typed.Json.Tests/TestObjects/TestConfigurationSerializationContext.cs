@@ -10,6 +10,7 @@ namespace Credfeto.Extensions.Configuration.Typed.Json.Tests.TestObjects;
                              WriteIndented = false,
                              IncludeFields = false)]
 [JsonSerializable(typeof(SimpleObjectWithOneProperty))]
+[JsonSerializable(typeof(SimpleObjectWithArrayOfStrings))]
 internal sealed partial class TestConfigurationSerializationContext : JsonSerializerContext
 {
 }
