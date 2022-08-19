@@ -20,7 +20,7 @@ jobs:
   standardise-yaml-files:
 
     if: ${{ github.event.pull_request.draft == false && ( !startsWith(github.head_ref, 'release/') && !startsWith(github.head_ref, 'hotfix/') ) && github.actor != 'dependabot[bot]' }}
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
 
     steps:
     - run: |
@@ -44,3 +44,4 @@ jobs:
         commit_user_email: "credfeto@users.noreply.github.com"
         commit_author: "fun-ymlfmt[bot] <credfeto@users.noreply.github.com>"
         skip_dirty_check: false
+
