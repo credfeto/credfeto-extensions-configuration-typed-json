@@ -1,5 +1,6 @@
-# funfair-server-template
-Template repository for C# / server code
+# credfeto-extensions-configuration-typed-json
+
+Typed and validated IConfigurtionRoot extensions that work with .net trimming
 
 ## Changelog
 
