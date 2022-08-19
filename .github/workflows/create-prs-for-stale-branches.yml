@@ -11,7 +11,7 @@ on:
 
 jobs:
   build-matrix:
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     # runs-on: ubuntu-latest
 
     permissions:
@@ -38,7 +38,7 @@ jobs:
 
   check-branch:
     needs: build-matrix
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     # runs-on: ubuntu-latest
 
     permissions:
