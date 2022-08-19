@@ -42,7 +42,6 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
                                                     {
                                                         new(propertyName: "Name", errorMessage: "'Name' must not be empty.")
                                                     };
-        this.Dump(exception.Errors);
         this.AssertIdentical(expected: expected, actual: exception.Errors);
     }
 
@@ -63,14 +62,6 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
                              .PropertyName,
                          actual: actual[i]
                              .PropertyName);
-        }
-    }
-
-    private void Dump(IReadOnlyList<ValidationFailure> errors)
-    {
-        foreach (ValidationFailure validationError in errors)
-        {
-            this.Output.WriteLine($"{validationError.PropertyName}: {validationError.ErrorMessage}");
         }
     }
 
