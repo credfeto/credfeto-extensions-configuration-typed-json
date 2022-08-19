@@ -15,7 +15,7 @@ concurrency:
 jobs:
   info:
     if: ${{ endsWith(github.repository , '-template') }}
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -27,7 +27,7 @@ jobs:
 
   include-JIRA-ticket:
     if: github.event.pull_request.draft == false
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -42,7 +42,7 @@ jobs:
 
   include-changelog-entry:
     if: github.event.pull_request.draft == false
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -58,7 +58,7 @@ jobs:
   change-log-entry-is-in-unreleased:
     if: github.event.pull_request.draft == false
     # As LibGit2Sharp doesn't work on 20.04
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -80,7 +80,7 @@ jobs:
 
   does-not-contain-secrets:
     if: github.event.pull_request.draft == false
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -104,7 +104,7 @@ jobs:
 
   has-no-merge-conflicts:
     if: github.event.pull_request.draft == false
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -115,7 +115,7 @@ jobs:
 
   has-no-file-or-folder-case-sensitivity-issues:
     if: github.event.pull_request.draft == false
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -126,7 +126,7 @@ jobs:
 
   no-ignored-files:
     if: github.event.pull_request.draft == false
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -138,7 +138,7 @@ jobs:
   dependency-review:
     # Check that there are no dependencies with security problems in the PR
     if: github.event.pull_request.draft == false
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -160,7 +160,7 @@ jobs:
 
   lint-code:
     if: ${{ github.event.pull_request.draft == false && ( !startsWith(github.head_ref, 'release/') && !startsWith(github.head_ref, 'hotfix/') ) }}
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
@@ -186,3 +186,4 @@ jobs:
           VALIDATE_TYPESCRIPT_ES: true
           VALIDATE_XML: true
           VALIDATE_YAML: true
+
