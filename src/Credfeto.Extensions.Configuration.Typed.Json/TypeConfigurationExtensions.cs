@@ -1,6 +1,7 @@
 using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -69,8 +70,7 @@ public static class TypeConfigurationExtensions
     {
         ArrayBufferWriter<byte> bufferWriter = new(jsonSerializerOptions.DefaultBufferSize);
 
-        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter,
-                                               new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
+        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter, new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
         {
             SerializeObject(config: section, writer: jsonWriter, jsonSerializerOptions: jsonSerializerOptions);
         }
@@ -159,14 +159,14 @@ public static class TypeConfigurationExtensions
             return;
         }
 
-        if (decimal.TryParse(s: configItem.Value, out decimal real))
+        if (decimal.TryParse(s: configItem.Value, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, out decimal real))
         {
             writer.WriteNumberValue(value: real);
 
             return;
         }
 
-        if (long.TryParse(s: configItem.Value, out long integer))
+        if (long.TryParse(s: configItem.Value, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, out long integer))
         {
             writer.WriteNumberValue(value: integer);
 
