@@ -23,7 +23,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     [Fact]
     public void SimpleObjectWithOnePropertyIsValid()
     {
-        IOptions<SimpleObjectWithOneProperty> configuration = GetSetting(new Dictionary<string, string> { ["banana:name"] = "Qwertyuiop" },
+        IOptions<SimpleObjectWithOneProperty> configuration = GetSetting(new Dictionary<string, string>(StringComparer.Ordinal) { ["banana:name"] = "Qwertyuiop" },
                                                                          sectionKey: "banana",
                                                                          new SimpleObjectWithOnePropertyValidator());
 
@@ -33,8 +33,9 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     [Fact]
     public void SimpleObjectWithOnePropertyInvalidSettings()
     {
-        ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(
-            () => GetSetting(new Dictionary<string, string> { ["banana:name"] = string.Empty }, sectionKey: "banana", new SimpleObjectWithOnePropertyValidator()));
+        ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(() => GetSetting(new Dictionary<string, string>(StringComparer.Ordinal) { ["banana:name"] = string.Empty },
+                                                                                                              sectionKey: "banana",
+                                                                                                              new SimpleObjectWithOnePropertyValidator()));
 
         IReadOnlyList<ValidationFailure> expected = new ValidationFailure[]
                                                     {
@@ -91,7 +92,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     [Fact]
     public void SimpleObjectWithArrayOfStringsIsValid()
     {
-        IOptions<SimpleObjectWithArrayOfStrings> configuration = GetSetting(new Dictionary<string, string> { ["banana:items:0"] = "Qwertyuiop" },
+        IOptions<SimpleObjectWithArrayOfStrings> configuration = GetSetting(new Dictionary<string, string>(StringComparer.Ordinal) { ["banana:items:0"] = "Qwertyuiop" },
                                                                             sectionKey: "banana",
                                                                             new SimpleObjectWithArrayOfStringsValidator());
 
