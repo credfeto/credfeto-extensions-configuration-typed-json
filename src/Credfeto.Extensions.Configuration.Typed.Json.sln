@@ -9,7 +9,6 @@ ProjectSection(SolutionItems) = preProject
 	global.json = global.json
 	..\CHANGELOG.md = ..\CHANGELOG.md
 	..\README.md = ..\README.md
-	FunFair.props = FunFair.props
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Credfeto.Extensions.Configuration.Typed.Json", "Credfeto.Extensions.Configuration.Typed.Json\Credfeto.Extensions.Configuration.Typed.Json.csproj", "{19831F67-3D35-45C7-B281-D73169B2974F}"
