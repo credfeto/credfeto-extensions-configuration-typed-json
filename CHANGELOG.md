@@ -9,6 +9,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
+- FluentValidation to FluentValidation.AspNetCore
 ### Removed
 ### Deployment Changes
 
