@@ -9,6 +9,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
+- FF-1429 - Updated Meziantou.Analyzer to 1.0.721
 ### Removed
 ### Deployment Changes
 
@@ -21,7 +22,6 @@ Releases that have at least been deployed to staging, BUT NOT necessarily releas
 
 ## [1.0.1] - 2022-08-31
 ### Changed
-- FF-1429 - Updated Meziantou.Analyzer to 1.0.720
 - FF-1429 - Updated Microsoft.NET.Test.Sdk to 17.3.1
 
 ## [1.0.0] - 2022-08-21
