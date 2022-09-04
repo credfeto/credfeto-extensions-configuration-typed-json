@@ -37,7 +37,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>$(ReleaseNotes)</PackageReleaseNotes>
     <PackageTags>Configuration, Typed, Validated.</PackageTags>
-    <Product>Url Shortener</Product>
+    <Product>Configuration Extensions</Product>
     <RepositoryUrl>https://github.com/credfeto/credfeto-extensions-configuration-typed-json</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup>
