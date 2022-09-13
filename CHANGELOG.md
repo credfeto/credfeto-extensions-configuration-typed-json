@@ -9,6 +9,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
+- FF-1429 - Updated Meziantou.Analyzer to 1.0.725
 ### Removed
 ### Deployment Changes
 
@@ -19,7 +20,6 @@ Releases that have at least been deployed to staging, BUT NOT necessarily releas
 ### Changed
 - FF-1429 - Updated SecurityCodeScan.VS2019 to 5.6.7
 - FF-1429 - Updated FunFair.CodeAnalysis to 5.9.0.1493
-- FF-1429 - Updated Meziantou.Analyzer to 1.0.723
 - FF-1429 - Updated FluentValidation.AspNetCore to 11.2.2
 
 ## [1.0.2] - 2022-08-31
