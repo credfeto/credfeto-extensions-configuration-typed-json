@@ -11,6 +11,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Changed
 - FF-1429 - Updated SonarAnalyzer.CSharp to 8.45.0.54064
 - FF-1429 - Updated Meziantou.Analyzer to 1.0.732
+- FF-3881 - Updated DotNet SDK to 7.0.100
 ### Removed
 ### Deployment Changes
 
