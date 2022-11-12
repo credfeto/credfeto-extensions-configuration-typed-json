@@ -11,15 +11,21 @@
     <IsPublishable>false</IsPublishable>
     <IsTrimmable>true</IsTrimmable>
     <LangVersion>latest</LangVersion>
-    <NoWarn />
+    <NoWarn/>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
     <RunAOTCompilation>false</RunAOTCompilation>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <TieredCompilation>true</TieredCompilation>
-    <TreatSpecificWarningsAsErrors />
+    <TreatSpecificWarningsAsErrors/>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
+    <WarningsAsErrors/>
+    <!-- Dotnet 7 features -->
+    <TieredPGO>true</TieredPGO>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <DebuggerSupport>true</DebuggerSupport>
   </PropertyGroup>
   <PropertyGroup>
     <AnalysisLevel>latest</AnalysisLevel>
@@ -59,6 +65,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.3.44" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="Nullable.Extended.Analyzer" Version="1.10.4539" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="Philips.CodeAnalysis.DuplicateCodeAnalyzer" Version="1.1.6" PrivateAssets="All" ExcludeAssets="runtime" />
+    <PackageReference Include="Philips.CodeAnalysis.MaintainabilityAnalyzers" Version="1.2.29" PrivateAssets="All" ExcludeAssets="runtime"/>
     <PackageReference Include="Roslynator.Analyzers" Version="4.1.1" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="SmartAnalyzers.CSharpExtensions.Annotations" Version="4.2.7" PrivateAssets="All" ExcludeAssets="runtime" />
