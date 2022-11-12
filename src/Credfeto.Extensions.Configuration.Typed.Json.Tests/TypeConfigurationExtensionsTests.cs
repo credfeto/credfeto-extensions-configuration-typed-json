@@ -23,7 +23,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     [Fact]
     public void SimpleObjectWithOnePropertyIsValid()
     {
-        IOptions<SimpleObjectWithOneProperty> configuration = GetSetting(new Dictionary<string, string>(StringComparer.Ordinal) { ["banana:name"] = "Qwertyuiop" },
+        IOptions<SimpleObjectWithOneProperty> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = "Qwertyuiop" },
                                                                          sectionKey: "banana",
                                                                          new SimpleObjectWithOnePropertyValidator());
 
@@ -34,9 +34,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     public void SimpleObjectWithOnePropertyInvalidSettings()
     {
         ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(
-            () => GetSetting(new Dictionary<string, string>(StringComparer.Ordinal) { ["banana:name"] = string.Empty },
-                             sectionKey: "banana",
-                             new SimpleObjectWithOnePropertyValidator()));
+            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty }, sectionKey: "banana", new SimpleObjectWithOnePropertyValidator()));
 
         IReadOnlyList<ValidationFailure> expected = new ValidationFailure[]
                                                     {
@@ -65,7 +63,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
         }
     }
 
-    private static IOptions<TConfigurationType> GetSetting<TConfigurationType>(IDictionary<string, string> settings, string sectionKey, IValidator<TConfigurationType> validator)
+    private static IOptions<TConfigurationType> GetSetting<TConfigurationType>(IDictionary<string, string?> settings, string sectionKey, IValidator<TConfigurationType> validator)
         where TConfigurationType : class
     {
         IServiceProvider serviceProvider = BuildServiceProvider(settings: settings, sectionKey: sectionKey, validator: validator);
@@ -76,7 +74,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
         return configuration;
     }
 
-    private static IServiceProvider BuildServiceProvider<TConfigurationType>(IDictionary<string, string> settings, string sectionKey, IValidator<TConfigurationType> validator)
+    private static IServiceProvider BuildServiceProvider<TConfigurationType>(IDictionary<string, string?> settings, string sectionKey, IValidator<TConfigurationType> validator)
         where TConfigurationType : class
 
     {
@@ -93,7 +91,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     [Fact]
     public void SimpleObjectWithArrayOfStringsIsValid()
     {
-        IOptions<SimpleObjectWithArrayOfStrings> configuration = GetSetting(new Dictionary<string, string>(StringComparer.Ordinal) { ["banana:items:0"] = "Qwertyuiop" },
+        IOptions<SimpleObjectWithArrayOfStrings> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:items:0"] = "Qwertyuiop" },
                                                                             sectionKey: "banana",
                                                                             new SimpleObjectWithArrayOfStringsValidator());
 

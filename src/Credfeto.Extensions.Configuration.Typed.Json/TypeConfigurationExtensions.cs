@@ -1,6 +1,7 @@
 using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -17,10 +18,11 @@ namespace Credfeto.Extensions.Configuration.Typed.Json;
 
 public static class TypeConfigurationExtensions
 {
-    public static IServiceCollection WithConfiguration<TValidator, TSettings>(this IServiceCollection services,
-                                                                              IConfigurationRoot configurationRoot,
-                                                                              string key,
-                                                                              JsonSerializerContext jsonSerializerContext)
+    public static IServiceCollection WithConfiguration<TValidator, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TSettings>(
+        this IServiceCollection services,
+        IConfigurationRoot configurationRoot,
+        string key,
+        JsonSerializerContext jsonSerializerContext)
         where TValidator : class, IValidator<TSettings>, new() where TSettings : class
     {
         IValidator<TSettings> validator = new TValidator();
@@ -28,11 +30,11 @@ public static class TypeConfigurationExtensions
         return services.WithConfiguration(configurationRoot, key, jsonSerializerContext, validator);
     }
 
-    public static IServiceCollection WithConfiguration<TSettings>(this IServiceCollection services,
-                                                                  IConfigurationRoot configurationRoot,
-                                                                  string key,
-                                                                  JsonSerializerContext jsonSerializerContext,
-                                                                  IValidator<TSettings> validator)
+    public static IServiceCollection WithConfiguration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TSettings>(this IServiceCollection services,
+        IConfigurationRoot configurationRoot,
+        string key,
+        JsonSerializerContext jsonSerializerContext,
+        IValidator<TSettings> validator)
         where TSettings : class
     {
         IConfigurationSection section = configurationRoot.GetSection(key);
@@ -42,7 +44,7 @@ public static class TypeConfigurationExtensions
             throw new JsonException($"No Json Type Info for {typeof(TSettings).FullName}");
         }
 
-        string result = ToJson(section: section, jsonSerializerOptions: jsonSerializerContext.Options);
+        string result = section.ToJson(jsonSerializerOptions: jsonSerializerContext.Options);
 
         Console.WriteLine(result);
 
@@ -70,10 +72,9 @@ public static class TypeConfigurationExtensions
     {
         ArrayBufferWriter<byte> bufferWriter = new(jsonSerializerOptions.DefaultBufferSize);
 
-        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter,
-                                               new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
+        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter, new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
         {
-            SerializeObject(config: section, writer: jsonWriter, jsonSerializerOptions: jsonSerializerOptions);
+            section.SerializeObject(writer: jsonWriter, jsonSerializerOptions: jsonSerializerOptions);
         }
 
         return Encoding.UTF8.GetString(bufferWriter.WrittenSpan);
@@ -113,7 +114,7 @@ public static class TypeConfigurationExtensions
             }
             else
             {
-                SerializeObject(config: section, writer: writer, jsonSerializerOptions: jsonSerializerOptions);
+                section.SerializeObject(writer: writer, jsonSerializerOptions: jsonSerializerOptions);
             }
         }
         else
@@ -134,7 +135,7 @@ public static class TypeConfigurationExtensions
                 if (section.GetChildren()
                            .Any())
                 {
-                    SerializeObject(config: section, writer: writer, jsonSerializerOptions: jsonSerializerOptions);
+                    section.SerializeObject(writer: writer, jsonSerializerOptions: jsonSerializerOptions);
                 }
                 else
                 {
