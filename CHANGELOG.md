@@ -9,6 +9,14 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
+### Removed
+### Deployment Changes
+
+<!--
+Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
+-->
+## [1.0.5] - 2022-11-13
+### Changed
 - FF-3881 - Updated DotNet SDK to 7.0.100
 - FF-1429 - Updated Credfeto.Enumeration.Source.Generation to 0.0.8.10
 - FF-1429 - Updated Meziantou.Analyzer to 1.0.747
@@ -21,12 +29,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - FF-1429 - Updated FunFair.Test.Common to 6.0.8.2334
 - FF-1429 - Updated Microsoft.Extensions to 7.0.0
 - FF-1429 - Updated Microsoft.NET.Test.Sdk to 17.4.0
-### Removed
-### Deployment Changes
 
-<!--
-Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
--->
 ## [1.0.4] - 2022-09-13
 ### Changed
 - FF-3881 - Updated DotNet SDK to 6.0.401
