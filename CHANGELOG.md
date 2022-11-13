@@ -20,6 +20,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - FF-1429 - Updated coverlet to 3.2.0
 - FF-1429 - Updated FunFair.Test.Common to 6.0.8.2334
 - FF-1429 - Updated Microsoft.Extensions to 7.0.0
+- FF-1429 - Updated Microsoft.NET.Test.Sdk to 17.4.0
 ### Removed
 ### Deployment Changes
 
