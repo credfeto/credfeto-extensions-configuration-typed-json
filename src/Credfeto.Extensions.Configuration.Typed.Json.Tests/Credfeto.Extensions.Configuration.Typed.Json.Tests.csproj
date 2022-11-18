@@ -1,9 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <DebuggerSupport>true</DebuggerSupport>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
     <EnablePackageValidation>true</EnablePackageValidation>
     <Features>strict;flow-analysis</Features>
     <GenerateNeutralResourcesLanguageAttribute>true</GenerateNeutralResourcesLanguageAttribute>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
     <ImplicitUsings>disable</ImplicitUsings>
     <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
     <IsPackable>false</IsPackable>
@@ -15,15 +18,11 @@
     <RunAOTCompilation>false</RunAOTCompilation>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <TieredCompilation>true</TieredCompilation>
+    <TieredPGO>true</TieredPGO>
     <TreatSpecificWarningsAsErrors />
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <!-- Dotnet 7 features -->
-    <TieredPGO>true</TieredPGO>
     <UseSystemResourceKeys>true</UseSystemResourceKeys>
-    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
-    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
-    <DebuggerSupport>true</DebuggerSupport>
+    <WarningsAsErrors />
   </PropertyGroup>
   <PropertyGroup>
     <AnalysisLevel>latest</AnalysisLevel>
@@ -47,9 +46,9 @@
   <ItemGroup>
     <PackageReference Include="AsyncFixer" Version="1.6.0" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="codecracker.CSharp" Version="1.1.0" PrivateAssets="All" ExcludeAssets="runtime" />
-    <PackageReference Include="Credfeto.Enumeration.Source.Generation" Version="0.0.8.10" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="coverlet.collector" Version="3.2.0" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="coverlet.msbuild" Version="3.2.0" PrivateAssets="All" ExcludeAssets="runtime" />
+    <PackageReference Include="Credfeto.Enumeration.Source.Generation" Version="0.0.8.10" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="FunFair.CodeAnalysis" Version="5.9.0.1493" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="Meziantou.Analyzer" Version="1.0.750" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.4.27" PrivateAssets="All" ExcludeAssets="runtime" />

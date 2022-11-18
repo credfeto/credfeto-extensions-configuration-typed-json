@@ -30,7 +30,8 @@ public static class TypeConfigurationExtensions
         return services.WithConfiguration(configurationRoot, key, jsonSerializerContext, validator);
     }
 
-    public static IServiceCollection WithConfiguration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TSettings>(this IServiceCollection services,
+    public static IServiceCollection WithConfiguration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TSettings>(
+        this IServiceCollection services,
         IConfigurationRoot configurationRoot,
         string key,
         JsonSerializerContext jsonSerializerContext,
@@ -72,7 +73,8 @@ public static class TypeConfigurationExtensions
     {
         ArrayBufferWriter<byte> bufferWriter = new(jsonSerializerOptions.DefaultBufferSize);
 
-        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter, new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
+        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter,
+                                               new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
         {
             section.SerializeObject(writer: jsonWriter, jsonSerializerOptions: jsonSerializerOptions);
         }

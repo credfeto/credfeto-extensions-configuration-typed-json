@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <DebuggerSupport>true</DebuggerSupport>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
     <EnablePackageValidation>true</EnablePackageValidation>
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     <Features>strict;flow-analysis</Features>
     <GenerateNeutralResourcesLanguageAttribute>true</GenerateNeutralResourcesLanguageAttribute>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
     <ImplicitUsings>disable</ImplicitUsings>
     <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
     <IsPackable>true</IsPackable>
@@ -17,15 +20,11 @@
     <RunAOTCompilation>false</RunAOTCompilation>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <TieredCompilation>true</TieredCompilation>
+    <TieredPGO>true</TieredPGO>
     <TreatSpecificWarningsAsErrors />
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <!-- Dotnet 7 features -->
-    <TieredPGO>true</TieredPGO>
     <UseSystemResourceKeys>true</UseSystemResourceKeys>
-    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
-    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
-    <DebuggerSupport>true</DebuggerSupport>
+    <WarningsAsErrors />
   </PropertyGroup>
   <PropertyGroup>
     <AnalysisLevel>latest</AnalysisLevel>
