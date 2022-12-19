@@ -30,12 +30,11 @@ public static class TypeConfigurationExtensions
         return services.WithConfiguration(configurationRoot, key, jsonSerializerContext, validator);
     }
 
-    public static IServiceCollection WithConfiguration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TSettings>(
-        this IServiceCollection services,
-        IConfigurationRoot configurationRoot,
-        string key,
-        JsonSerializerContext jsonSerializerContext,
-        IValidator<TSettings> validator)
+    public static IServiceCollection WithConfiguration<TSettings>(this IServiceCollection services,
+                                                                  IConfigurationRoot configurationRoot,
+                                                                  string key,
+                                                                  JsonSerializerContext jsonSerializerContext,
+                                                                  IValidator<TSettings> validator)
         where TSettings : class
     {
         IConfigurationSection section = configurationRoot.GetSection(key);
@@ -51,9 +50,22 @@ public static class TypeConfigurationExtensions
 
         Validate(validator: validator, settings: settings);
 
-        IOptions<TSettings> toRegister = Options.Create(settings);
+        return RegisterOptions(services: services, settings: settings);
+    }
 
-        return services.AddSingleton(toRegister);
+    [SuppressMessage(category: "FunFair.CodeAnalysis", checkId: "FFS0008: Don't disable warnings with #pragma", Justification = "Constructor has been called already and is passed to method")]
+    private static IServiceCollection RegisterOptions<TSettings>(IServiceCollection services, TSettings settings)
+        where TSettings : class
+    {
+#pragma warning disable IL2091
+        return services.AddSingleton(CreateOptions(settings));
+#pragma warning restore IL2091
+    }
+
+    private static IOptions<TSettings> CreateOptions<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TSettings>(TSettings settings)
+        where TSettings : class
+    {
+        return Options.Create(settings);
     }
 
     private static TSettings DeserializeSettings<TSettings>(string result, JsonTypeInfo<TSettings> typeInfo)
