@@ -37,24 +37,20 @@ public static class TypeConfigurationExtensions
                                                                   IValidator<TSettings> validator)
         where TSettings : class
     {
-        IConfigurationSection section = configurationRoot.GetSection(key);
+        return services.RegisterOptions(settings: DeserializeSettings(configurationRoot.GetSection(key)
+                                                                                       .ToJson(jsonSerializerOptions: jsonSerializerContext.Options),
+                                                                      jsonSerializerContext.GetSerializerTypeInfo<TSettings>())
+                                            .Validate(validator: validator));
+    }
 
-        if (jsonSerializerContext.GetTypeInfo(typeof(TSettings)) is not JsonTypeInfo<TSettings> typeInfo)
-        {
-            return RaiseNoTypeInformationAvailable<TSettings>();
-        }
-
-        string result = section.ToJson(jsonSerializerOptions: jsonSerializerContext.Options);
-
-        TSettings settings = DeserializeSettings(result: result, typeInfo: typeInfo);
-
-        Validate(validator: validator, settings: settings);
-
-        return RegisterOptions(services: services, settings: settings);
+    private static JsonTypeInfo<TSettings> GetSerializerTypeInfo<TSettings>(this JsonSerializerContext jsonSerializerContext)
+        where TSettings : class
+    {
+        return jsonSerializerContext.GetTypeInfo(typeof(TSettings)) as JsonTypeInfo<TSettings> ?? RaiseNoTypeInformationAvailable<TSettings>();
     }
 
     [SuppressMessage(category: "FunFair.CodeAnalysis", checkId: "FFS0008: Don't disable warnings with #pragma", Justification = "Constructor has been called already and is passed to method")]
-    private static IServiceCollection RegisterOptions<TSettings>(IServiceCollection services, TSettings settings)
+    private static IServiceCollection RegisterOptions<TSettings>(this IServiceCollection services, TSettings settings)
         where TSettings : class
     {
 #pragma warning disable IL2091
@@ -82,21 +78,27 @@ public static class TypeConfigurationExtensions
     }
 
     [DoesNotReturn]
-    private static IServiceCollection RaiseNoTypeInformationAvailable<TSettings>()
+    private static JsonTypeInfo<TSettings> RaiseNoTypeInformationAvailable<TSettings>()
         where TSettings : class
     {
         throw new JsonException($"No Json Type Info for {typeof(TSettings).FullName}");
     }
 
-    private static void Validate<TSettings>(IValidator<TSettings> validator, TSettings settings)
+    private static TSettings Validate<TSettings>(this TSettings settings, IValidator<TSettings> validator)
         where TSettings : class
     {
         ValidationResult validationResult = validator.Validate(settings);
 
-        if (!validationResult.IsValid)
-        {
-            throw new ConfigurationErrorsException(validationResult.Errors);
-        }
+        return validationResult.IsValid
+            ? settings
+            : RaiseConfigurationErrors<TSettings>(validationResult);
+    }
+
+    [DoesNotReturn]
+    private static TSettings RaiseConfigurationErrors<TSettings>(ValidationResult validationResult)
+        where TSettings : class
+    {
+        throw new ConfigurationErrorsException(validationResult.Errors);
     }
 
     private static string ToJson(this IConfigurationSection section, JsonSerializerOptions jsonSerializerOptions)
