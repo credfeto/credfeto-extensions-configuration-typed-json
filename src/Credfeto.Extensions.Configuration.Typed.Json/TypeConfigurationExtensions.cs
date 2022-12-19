@@ -42,7 +42,7 @@ public static class TypeConfigurationExtensions
 
         if (jsonSerializerContext.GetTypeInfo(typeof(TSettings)) is not JsonTypeInfo<TSettings> typeInfo)
         {
-            throw new JsonException($"No Json Type Info for {typeof(TSettings).FullName}");
+            return RaiseNoTypeInformationAvailable<TSettings>();
         }
 
         string result = section.ToJson(jsonSerializerOptions: jsonSerializerContext.Options);
@@ -56,6 +56,13 @@ public static class TypeConfigurationExtensions
         IOptions<TSettings> toRegister = Options.Create(settings);
 
         return services.AddSingleton(toRegister);
+    }
+
+    [DoesNotReturn]
+    private static IServiceCollection RaiseNoTypeInformationAvailable<TSettings>()
+        where TSettings : class
+    {
+        throw new JsonException($"No Json Type Info for {typeof(TSettings).FullName}");
     }
 
     private static void Validate<TSettings>(IValidator<TSettings> validator, TSettings settings)
@@ -73,8 +80,7 @@ public static class TypeConfigurationExtensions
     {
         ArrayBufferWriter<byte> bufferWriter = new(jsonSerializerOptions.DefaultBufferSize);
 
-        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter,
-                                               new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
+        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter, new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
         {
             section.SerializeObject(writer: jsonWriter, jsonSerializerOptions: jsonSerializerOptions);
         }
