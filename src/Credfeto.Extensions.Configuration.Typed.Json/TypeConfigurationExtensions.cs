@@ -25,9 +25,7 @@ public static class TypeConfigurationExtensions
         JsonSerializerContext jsonSerializerContext)
         where TValidator : class, IValidator<TSettings>, new() where TSettings : class
     {
-        IValidator<TSettings> validator = new TValidator();
-
-        return services.WithConfiguration(configurationRoot, key, jsonSerializerContext, validator);
+        return services.WithConfiguration(configurationRoot: configurationRoot, key: key, jsonSerializerContext: jsonSerializerContext, new TValidator());
     }
 
     public static IServiceCollection WithConfiguration<TSettings>(this IServiceCollection services,
@@ -46,7 +44,7 @@ public static class TypeConfigurationExtensions
     private static JsonTypeInfo<TSettings> GetSerializerTypeInfo<TSettings>(this JsonSerializerContext jsonSerializerContext)
         where TSettings : class
     {
-        return jsonSerializerContext.GetTypeInfo(typeof(TSettings)) as JsonTypeInfo<TSettings> ?? RaiseNoTypeInformationAvailable<TSettings>();
+        return jsonSerializerContext.GetTypeInfo(typeof(TSettings)) as JsonTypeInfo<TSettings> ?? ExceptionHelpers.RaiseNoTypeInformationAvailable<TSettings>();
     }
 
     [SuppressMessage(category: "FunFair.CodeAnalysis", checkId: "FFS0008: Don't disable warnings with #pragma", Justification = "Constructor has been called already and is passed to method")]
@@ -67,21 +65,7 @@ public static class TypeConfigurationExtensions
     private static TSettings DeserializeSettings<TSettings>(string result, JsonTypeInfo<TSettings> typeInfo)
         where TSettings : class
     {
-        return JsonSerializer.Deserialize(json: result, jsonTypeInfo: typeInfo) ?? RaiseCouldNotDeserialize<TSettings>();
-    }
-
-    [DoesNotReturn]
-    private static TSettings RaiseCouldNotDeserialize<TSettings>()
-        where TSettings : class
-    {
-        throw new JsonException("Could not deserialize options");
-    }
-
-    [DoesNotReturn]
-    private static JsonTypeInfo<TSettings> RaiseNoTypeInformationAvailable<TSettings>()
-        where TSettings : class
-    {
-        throw new JsonException($"No Json Type Info for {typeof(TSettings).FullName}");
+        return JsonSerializer.Deserialize(json: result, jsonTypeInfo: typeInfo) ?? ExceptionHelpers.RaiseCouldNotDeserialize<TSettings>();
     }
 
     private static TSettings Validate<TSettings>(this TSettings settings, IValidator<TSettings> validator)
@@ -91,14 +75,7 @@ public static class TypeConfigurationExtensions
 
         return validationResult.IsValid
             ? settings
-            : RaiseConfigurationErrors<TSettings>(validationResult);
-    }
-
-    [DoesNotReturn]
-    private static TSettings RaiseConfigurationErrors<TSettings>(ValidationResult validationResult)
-        where TSettings : class
-    {
-        throw new ConfigurationErrorsException(validationResult.Errors);
+            : ExceptionHelpers.RaiseConfigurationErrors<TSettings>(validationResult);
     }
 
     private static string ToJson(this IConfigurationSection section, JsonSerializerOptions jsonSerializerOptions)
