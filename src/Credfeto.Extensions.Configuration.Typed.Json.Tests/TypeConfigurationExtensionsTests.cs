@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Credfeto.Extensions.Configuration.Typed.Json.Exceptions;
 using Credfeto.Extensions.Configuration.Typed.Json.Tests.TestObjects;
+using Credfeto.Extensions.Configuration.Typed.Json.Tests.TestValidators;
 using FluentValidation;
 using FluentValidation.Results;
 using FunFair.Test.Common;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Xunit;
 using Xunit.Abstractions;
+using TestConfigurationSerializationContext = Credfeto.Extensions.Configuration.Typed.Json.Tests.TestSerizlizationContexts.TestConfigurationSerializationContext;
 
 namespace Credfeto.Extensions.Configuration.Typed.Json.Tests;
 
@@ -22,20 +24,100 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     }
 
     [Fact]
-    public void SimpleObjectWithOnePropertyIsValid()
+    public void SimpleObjectWithOneStringPropertyIsValid()
     {
-        IOptions<SimpleObjectWithOneProperty> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = "Qwertyuiop" },
-                                                                         sectionKey: "banana",
-                                                                         new SimpleObjectWithOnePropertyValidator());
+        IOptions<SimpleObjectWithOneStringProperty> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = "Qwertyuiop" },
+                                                                               sectionKey: "banana",
+                                                                               new SimpleObjectWithOneStringPropertyValidator());
 
         Assert.Equal(expected: "Qwertyuiop", actual: configuration.Value.Name);
+    }
+
+    [Fact]
+    public void SimpleObjectWithOneNullableStringPropertyIsValidNull()
+    {
+        IOptions<SimpleObjectWithOneNullableStringProperty> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = null },
+                                                                                       sectionKey: "banana",
+                                                                                       new SimpleObjectWithOneNullableStringPropertyValidator());
+
+        Assert.Null(configuration.Value.Name);
+    }
+
+    [Fact]
+    public void SimpleObjectWithOneNullableStringPropertyIsValidString()
+    {
+        IOptions<SimpleObjectWithOneNullableStringProperty> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = "Qwertyuiop" },
+                                                                                       sectionKey: "banana",
+                                                                                       new SimpleObjectWithOneNullableStringPropertyValidator());
+
+        Assert.Equal(expected: "Qwertyuiop", actual: configuration.Value.Name);
+    }
+
+    [Fact]
+    public void SimpleObjectWithOneBooleanPropertyIsValid()
+    {
+        IOptions<SimpleObjectWithOneBooleanProperty> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:expected"] = "true" },
+                                                                                sectionKey: "banana",
+                                                                                new SimpleObjectWithOneBooleanPropertyValidator());
+
+        Assert.True(condition: configuration.Value.Expected, userMessage: "Configuration should be true");
+    }
+
+    [Fact]
+    public void SimpleObjectWithOneDecimalPropertyIsValid()
+    {
+        IOptions<SimpleObjectWithOneDecimalProperty> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:expected"] = "1.42" },
+                                                                                sectionKey: "banana",
+                                                                                new SimpleObjectWithOneDecimalPropertyValidator());
+
+        Assert.Equal(expected: 1.42m, actual: configuration.Value.Expected);
+    }
+
+    [Fact]
+    public void SimpleObjectWithOneInt32PropertyIsValid()
+    {
+        IOptions<SimpleObjectWithOneInt32Property> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:expected"] = "42" },
+                                                                              sectionKey: "banana",
+                                                                              new SimpleObjectWithOneInt32PropertyValidator());
+
+        Assert.Equal(expected: 42, actual: configuration.Value.Expected);
+    }
+
+    [Fact]
+    public void SimpleObjectWithOneInt64PropertyIsValid()
+    {
+        IOptions<SimpleObjectWithOneInt64Property> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:expected"] = "42" },
+                                                                              sectionKey: "banana",
+                                                                              new SimpleObjectWithOneInt64PropertyValidator());
+
+        Assert.Equal(expected: 42, actual: configuration.Value.Expected);
+    }
+
+    [Fact]
+    public void SimpleObjectWithOneUInt32PropertyIsValid()
+    {
+        IOptions<SimpleObjectWithOneUInt32Property> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:expected"] = "42" },
+                                                                               sectionKey: "banana",
+                                                                               new SimpleObjectWithOneUInt32PropertyValidator());
+
+        Assert.Equal(expected: 42U, actual: configuration.Value.Expected);
+    }
+
+    [Fact]
+    public void SimpleObjectWithOneUInt64PropertyIsValid()
+    {
+        IOptions<SimpleObjectWithOneUInt64Property> configuration = GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:expected"] = "42" },
+                                                                               sectionKey: "banana",
+                                                                               new SimpleObjectWithOneUInt64PropertyValidator());
+
+        Assert.Equal(expected: 42UL, actual: configuration.Value.Expected);
     }
 
     [Fact]
     public void SimpleObjectWithOnePropertyInvalidSettings()
     {
         ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(
-            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty }, sectionKey: "banana", new SimpleObjectWithOnePropertyValidator()));
+            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty }, sectionKey: "banana", new SimpleObjectWithOneStringPropertyValidator()));
 
         IReadOnlyList<ValidationFailure> expected = new ValidationFailure[]
                                                     {
