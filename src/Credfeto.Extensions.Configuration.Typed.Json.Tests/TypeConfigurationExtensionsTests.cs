@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Credfeto.Extensions.Configuration.Typed.Json.Exceptions;
 using Credfeto.Extensions.Configuration.Typed.Json.Tests.TestObjects;
 using FluentValidation;
 using FluentValidation.Results;
@@ -34,9 +35,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     public void SimpleObjectWithOnePropertyInvalidSettings()
     {
         ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(
-            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty },
-                             sectionKey: "banana",
-                             new SimpleObjectWithOnePropertyValidator()));
+            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty }, sectionKey: "banana", new SimpleObjectWithOnePropertyValidator()));
 
         IReadOnlyList<ValidationFailure> expected = new ValidationFailure[]
                                                     {

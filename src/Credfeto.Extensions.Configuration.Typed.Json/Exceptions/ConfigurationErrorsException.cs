@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using FluentValidation.Results;
 
-namespace Credfeto.Extensions.Configuration.Typed.Json;
+namespace Credfeto.Extensions.Configuration.Typed.Json.Exceptions;
 
 public sealed class ConfigurationErrorsException : Exception
 {

@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
+using Credfeto.Extensions.Configuration.Typed.Json.Writers;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Configuration;
@@ -196,37 +197,5 @@ public static class TypeConfigurationExtensions
     private static bool IsFirstArrayElement(IConfigurationSection section)
     {
         return section.Path.EndsWith(value: ":0", comparisonType: StringComparison.Ordinal);
-    }
-
-    private sealed class JsonObjectWriter : IDisposable
-    {
-        private readonly Utf8JsonWriter _writer;
-
-        public JsonObjectWriter(Utf8JsonWriter writer)
-        {
-            this._writer = writer;
-            this._writer.WriteStartObject();
-        }
-
-        public void Dispose()
-        {
-            this._writer.WriteEndObject();
-        }
-    }
-
-    private sealed class JsonArrayWriter : IDisposable
-    {
-        private readonly Utf8JsonWriter _writer;
-
-        public JsonArrayWriter(Utf8JsonWriter writer)
-        {
-            this._writer = writer;
-            this._writer.WriteStartArray();
-        }
-
-        public void Dispose()
-        {
-            this._writer.WriteEndArray();
-        }
     }
 }

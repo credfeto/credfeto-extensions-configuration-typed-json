@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
+using Credfeto.Extensions.Configuration.Typed.Json.Exceptions;
 using FluentValidation.Results;
 
 namespace Credfeto.Extensions.Configuration.Typed.Json;
