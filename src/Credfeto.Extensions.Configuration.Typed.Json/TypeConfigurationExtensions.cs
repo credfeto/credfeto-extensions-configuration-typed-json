@@ -2,7 +2,6 @@ using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -158,31 +157,8 @@ public static class TypeConfigurationExtensions
 
     private static void SerialiseTypedValue(IConfigurationSection configItem, Utf8JsonWriter writer)
     {
-        if (configItem.Value == null)
+        if (JsonPropertyWriter.Writers.Any(writerFunc => writerFunc(arg1: configItem, arg2: writer)))
         {
-            writer.WriteNullValue();
-
-            return;
-        }
-
-        if (bool.TryParse(value: configItem.Value, out bool boolean))
-        {
-            writer.WriteBooleanValue(value: boolean);
-
-            return;
-        }
-
-        if (decimal.TryParse(s: configItem.Value, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, out decimal real))
-        {
-            writer.WriteNumberValue(value: real);
-
-            return;
-        }
-
-        if (long.TryParse(s: configItem.Value, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, out long integer))
-        {
-            writer.WriteNumberValue(value: integer);
-
             return;
         }
 
