@@ -47,8 +47,6 @@ public static class TypeConfigurationExtensions
 
         string result = section.ToJson(jsonSerializerOptions: jsonSerializerContext.Options);
 
-        Console.WriteLine(result);
-
         TSettings settings = DeserializeSettings(result: result, typeInfo: typeInfo);
 
         Validate(validator: validator, settings: settings);
