@@ -129,7 +129,7 @@ public static class TypeConfigurationExtensions
         }
         else
         {
-            SerialiseTypedValue(configItem: section, writer: writer);
+            JsonPropertyWriter.SerialiseTypedValue(configItem: section, writer: writer);
         }
     }
 
@@ -149,20 +149,10 @@ public static class TypeConfigurationExtensions
                 }
                 else
                 {
-                    SerialiseTypedValue(configItem: section, writer: writer);
+                    JsonPropertyWriter.SerialiseTypedValue(configItem: section, writer: writer);
                 }
             }
         }
-    }
-
-    private static void SerialiseTypedValue(IConfigurationSection configItem, Utf8JsonWriter writer)
-    {
-        if (JsonPropertyWriter.Writers.Any(writerFunc => writerFunc(arg1: configItem, arg2: writer)))
-        {
-            return;
-        }
-
-        writer.WriteStringValue(value: configItem.Value);
     }
 
     private static string ConvertName(JsonSerializerOptions jsonSerializerOptions, string name)

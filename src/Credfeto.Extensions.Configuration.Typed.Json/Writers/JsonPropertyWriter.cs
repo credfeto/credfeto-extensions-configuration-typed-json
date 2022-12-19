@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 
@@ -8,15 +9,13 @@ namespace Credfeto.Extensions.Configuration.Typed.Json.Writers;
 
 internal static class JsonPropertyWriter
 {
-    private static readonly Func<IConfigurationSection, Utf8JsonWriter, bool>[] PropertyWriter =
-    {
-        WriteNullValue,
-        WriteBooleanValue,
-        WriteDecimalValue,
-        WriteIntegerValue
-    };
-
-    public static IReadOnlyList<Func<IConfigurationSection, Utf8JsonWriter, bool>> Writers => PropertyWriter;
+    private static readonly IReadOnlyList<Func<IConfigurationSection, Utf8JsonWriter, bool>> PropertyWriter = new[]
+                                                                                                              {
+                                                                                                                  WriteNullValue,
+                                                                                                                  WriteBooleanValue,
+                                                                                                                  WriteDecimalValue,
+                                                                                                                  WriteIntegerValue
+                                                                                                              };
 
     private static bool WriteBooleanValue(IConfigurationSection configItem, Utf8JsonWriter writer)
     {
@@ -64,5 +63,15 @@ internal static class JsonPropertyWriter
         }
 
         return false;
+    }
+
+    public static void SerialiseTypedValue(IConfigurationSection configItem, Utf8JsonWriter writer)
+    {
+        if (PropertyWriter.Any(writerFunc => writerFunc(arg1: configItem, arg2: writer)))
+        {
+            return;
+        }
+
+        writer.WriteStringValue(value: configItem.Value);
     }
 }
