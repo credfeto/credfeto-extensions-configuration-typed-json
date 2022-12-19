@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 
@@ -9,14 +6,6 @@ namespace Credfeto.Extensions.Configuration.Typed.Json.Writers;
 
 internal static class JsonPropertyWriter
 {
-    private static readonly IReadOnlyList<Func<IConfigurationSection, Utf8JsonWriter, bool>> PropertyWriter = new[]
-                                                                                                              {
-                                                                                                                  WriteNullValue,
-                                                                                                                  WriteBooleanValue,
-                                                                                                                  WriteDecimalValue,
-                                                                                                                  WriteIntegerValue
-                                                                                                              };
-
     private static bool WriteBooleanValue(IConfigurationSection configItem, Utf8JsonWriter writer)
     {
         if (bool.TryParse(value: configItem.Value, out bool boolean))
@@ -67,11 +56,17 @@ internal static class JsonPropertyWriter
 
     public static void SerialiseTypedValue(IConfigurationSection configItem, Utf8JsonWriter writer)
     {
-        if (PropertyWriter.Any(writerFunc => writerFunc(arg1: configItem, arg2: writer)))
+        if (WriteTypedProperties(configItem: configItem, writer: writer))
         {
             return;
         }
 
         writer.WriteStringValue(value: configItem.Value);
+    }
+
+    private static bool WriteTypedProperties(IConfigurationSection configItem, Utf8JsonWriter writer)
+    {
+        return WriteNullValue(configItem: configItem, writer: writer) || WriteBooleanValue(configItem: configItem, writer: writer) || WriteDecimalValue(configItem: configItem, writer: writer) ||
+               WriteIntegerValue(configItem: configItem, writer: writer);
     }
 }
