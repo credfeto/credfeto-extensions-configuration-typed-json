@@ -49,13 +49,26 @@ public static class TypeConfigurationExtensions
 
         Console.WriteLine(result);
 
-        TSettings settings = JsonSerializer.Deserialize(json: result, jsonTypeInfo: typeInfo) ?? throw new JsonException("Could not deserialize options");
+        TSettings settings = DeserializeSettings(result: result, typeInfo: typeInfo);
 
         Validate(validator: validator, settings: settings);
 
         IOptions<TSettings> toRegister = Options.Create(settings);
 
         return services.AddSingleton(toRegister);
+    }
+
+    private static TSettings DeserializeSettings<TSettings>(string result, JsonTypeInfo<TSettings> typeInfo)
+        where TSettings : class
+    {
+        return JsonSerializer.Deserialize(json: result, jsonTypeInfo: typeInfo) ?? RaiseCouldNotDeserialize<TSettings>();
+    }
+
+    [DoesNotReturn]
+    private static TSettings RaiseCouldNotDeserialize<TSettings>()
+        where TSettings : class
+    {
+        throw new JsonException("Could not deserialize options");
     }
 
     [DoesNotReturn]
