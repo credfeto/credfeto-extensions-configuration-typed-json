@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Credfeto.Extensions.Configuration.Typed.Json.Exceptions;
 using Credfeto.Extensions.Configuration.Typed.Json.Tests.TestObjects;
+using Credfeto.Extensions.Configuration.Typed.Json.Tests.TestSerizlizationContexts;
 using Credfeto.Extensions.Configuration.Typed.Json.Tests.TestValidators;
 using FluentValidation;
 using FluentValidation.Results;
@@ -12,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Xunit;
 using Xunit.Abstractions;
-using TestConfigurationSerializationContext = Credfeto.Extensions.Configuration.Typed.Json.Tests.TestSerizlizationContexts.TestConfigurationSerializationContext;
 
 namespace Credfeto.Extensions.Configuration.Typed.Json.Tests;
 
@@ -117,7 +117,9 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     public void SimpleObjectWithOnePropertyInvalidSettings()
     {
         ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(
-            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty }, sectionKey: "banana", new SimpleObjectWithOneStringPropertyValidator()));
+            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty },
+                             sectionKey: "banana",
+                             new SimpleObjectWithOneStringPropertyValidator()));
 
         IReadOnlyList<ValidationFailure> expected = new ValidationFailure[]
                                                     {
