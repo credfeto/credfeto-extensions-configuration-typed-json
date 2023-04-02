@@ -47,9 +47,7 @@ public static class TypeConfigurationExtensions
         return jsonSerializerContext.GetTypeInfo(typeof(TSettings)) as JsonTypeInfo<TSettings> ?? ExceptionHelpers.RaiseNoTypeInformationAvailable<TSettings>();
     }
 
-    [SuppressMessage(category: "FunFair.CodeAnalysis",
-                     checkId: "FFS0008: Don't disable warnings with #pragma",
-                     Justification = "Constructor has been called already and is passed to method")]
+    [SuppressMessage(category: "FunFair.CodeAnalysis", checkId: "FFS0008: Don't disable warnings with #pragma", Justification = "Constructor has been called already and is passed to method")]
     private static IServiceCollection RegisterOptions<TSettings>(this IServiceCollection services, TSettings settings)
         where TSettings : class
     {
@@ -70,6 +68,7 @@ public static class TypeConfigurationExtensions
         return JsonSerializer.Deserialize(json: result, jsonTypeInfo: typeInfo) ?? ExceptionHelpers.RaiseCouldNotDeserialize<TSettings>();
     }
 
+    [SuppressMessage(category: "Meziantou.Analyzer", checkId: "MA0045:Use Async", Justification = "Not required here")]
     private static TSettings Validate<TSettings>(this TSettings settings, IValidator<TSettings> validator)
         where TSettings : class
     {
@@ -80,12 +79,12 @@ public static class TypeConfigurationExtensions
             : ExceptionHelpers.RaiseConfigurationErrors<TSettings>(validationResult);
     }
 
+    [SuppressMessage(category: "Meziantou.Analyzer", checkId: "MA0045:Use Async", Justification = "Not required here")]
     private static string ToJson(this IConfigurationSection section, JsonSerializerOptions jsonSerializerOptions)
     {
         ArrayBufferWriter<byte> bufferWriter = new(jsonSerializerOptions.DefaultBufferSize);
 
-        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter,
-                                               new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
+        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter, new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
         {
             section.SerializeObject(writer: jsonWriter, jsonSerializerOptions: jsonSerializerOptions);
         }
