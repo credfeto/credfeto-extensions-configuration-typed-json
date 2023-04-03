@@ -9,6 +9,14 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
+### Removed
+### Deployment Changes
+
+<!--
+Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
+-->
+## [1.0.17] - 2023-04-03
+### Changed
 - SDK - Updated DotNet SDK to 7.0.202
 - Dependencies - Updated Credfeto.Enumeration.Source.Generation to 1.0.7.19
 - Dependencies - Updated Meziantou.Analyzer to 2.0.29
@@ -16,12 +24,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated FluentValidation to 11.3.0
 - Dependencies - Updated FunFair.Test.Common to 6.0.26.2754
 - Dependencies - Updated Microsoft.NET.Test.Sdk to 17.5.0
-### Removed
-### Deployment Changes
 
-<!--
-Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
--->
 ## [1.0.16] - 2023-02-15
 ### Changed
 - FF-1429 - Updated NSubstitute.Analyzers.CSharp to 1.0.16
