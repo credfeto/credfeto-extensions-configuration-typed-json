@@ -9,6 +9,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
+- Dependencies - Updated CSharpIsNullAnalyzer to 0.1.495
 ### Removed
 ### Deployment Changes
 
