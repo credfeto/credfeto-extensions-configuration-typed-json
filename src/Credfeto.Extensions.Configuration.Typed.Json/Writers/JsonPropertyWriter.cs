@@ -80,7 +80,7 @@ internal static class JsonPropertyWriter
 
     private static bool WriteNullValue(IConfigurationSection configItem, Utf8JsonWriter writer)
     {
-        if (configItem.Value == null)
+        if (configItem.Value is null)
         {
             writer.WriteNullValue();
 
@@ -102,9 +102,8 @@ internal static class JsonPropertyWriter
 
     private static bool WriteTypedProperties(IConfigurationSection configItem, Utf8JsonWriter writer)
     {
-        return WriteNullValue(configItem: configItem, writer: writer) || WriteBooleanValue(configItem: configItem, writer: writer) ||
-               WriteUInt32Value(configItem: configItem, writer: writer) || WriteUInt64Value(configItem: configItem, writer: writer) ||
-               WriteInt32Value(configItem: configItem, writer: writer) || WriteInt64Value(configItem: configItem, writer: writer) ||
+        return WriteNullValue(configItem: configItem, writer: writer) || WriteBooleanValue(configItem: configItem, writer: writer) || WriteUInt32Value(configItem: configItem, writer: writer) ||
+               WriteUInt64Value(configItem: configItem, writer: writer) || WriteInt32Value(configItem: configItem, writer: writer) || WriteInt64Value(configItem: configItem, writer: writer) ||
                WriteDecimalValue(configItem: configItem, writer: writer);
     }
 }

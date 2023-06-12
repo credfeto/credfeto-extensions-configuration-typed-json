@@ -47,9 +47,7 @@ public static class TypeConfigurationExtensions
         return jsonSerializerContext.GetTypeInfo(typeof(TSettings)) as JsonTypeInfo<TSettings> ?? ExceptionHelpers.RaiseNoTypeInformationAvailable<TSettings>();
     }
 
-    [SuppressMessage(category: "FunFair.CodeAnalysis",
-                     checkId: "FFS0008: Don't disable warnings with #pragma",
-                     Justification = "Constructor has been called already and is passed to method")]
+    [SuppressMessage(category: "FunFair.CodeAnalysis", checkId: "FFS0008: Don't disable warnings with #pragma", Justification = "Constructor has been called already and is passed to method")]
     private static IServiceCollection RegisterOptions<TSettings>(this IServiceCollection services, TSettings settings)
         where TSettings : class
     {
@@ -86,8 +84,7 @@ public static class TypeConfigurationExtensions
     {
         ArrayBufferWriter<byte> bufferWriter = new(jsonSerializerOptions.DefaultBufferSize);
 
-        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter,
-                                               new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
+        using (Utf8JsonWriter jsonWriter = new(bufferWriter: bufferWriter, new() { Encoder = jsonSerializerOptions.Encoder, Indented = jsonSerializerOptions.WriteIndented, SkipValidation = false }))
         {
             section.SerializeObject(writer: jsonWriter, jsonSerializerOptions: jsonSerializerOptions);
         }
@@ -121,7 +118,7 @@ public static class TypeConfigurationExtensions
 
         writer.WritePropertyName(ConvertName(jsonSerializerOptions: jsonSerializerOptions, name: section.Key));
 
-        if (firstChild != null)
+        if (firstChild is not null)
         {
             if (IsFirstArrayElement(firstChild))
             {
