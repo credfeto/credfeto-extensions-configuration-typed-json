@@ -137,14 +137,8 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
             this.Output.WriteLine($"* Item {i}:");
             this.Output.WriteLine($"-> Name: {expected[i].PropertyName} <> {actual[i].PropertyName}");
             this.Output.WriteLine($"-> Message: {expected[i].ErrorMessage} <> {actual[i].ErrorMessage}");
-            Assert.Equal(expected: expected[i]
-                             .ErrorMessage,
-                         actual: actual[i]
-                             .ErrorMessage);
-            Assert.Equal(expected: expected[i]
-                             .PropertyName,
-                         actual: actual[i]
-                             .PropertyName);
+            Assert.Equal(expected: expected[i].ErrorMessage, actual: actual[i].ErrorMessage);
+            Assert.Equal(expected: expected[i].PropertyName, actual: actual[i].PropertyName);
         }
     }
 
