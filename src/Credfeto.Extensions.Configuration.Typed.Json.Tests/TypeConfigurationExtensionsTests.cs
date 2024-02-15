@@ -113,18 +113,21 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
         Assert.Equal(expected: 42UL, actual: configuration.Value.Expected);
     }
 
+    private static ValidationFailure ValidationFailure(string propertyName, string errorMessage)
+    {
+        return new(propertyName: propertyName, errorMessage: errorMessage);
+    }
+
     [Fact]
     public void SimpleObjectWithOnePropertyInvalidSettings()
     {
         ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(
-            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty },
-                             sectionKey: "banana",
-                             new SimpleObjectWithOneStringPropertyValidator()));
+            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty }, sectionKey: "banana", new SimpleObjectWithOneStringPropertyValidator()));
 
-        IReadOnlyList<ValidationFailure> expected = new ValidationFailure[]
-                                                    {
-                                                        new(propertyName: "Name", errorMessage: "'Name' must not be empty.")
-                                                    };
+        IReadOnlyList<ValidationFailure> expected =
+        [
+            ValidationFailure(propertyName: "Name", errorMessage: "'Name' must not be empty.")
+        ];
         this.AssertIdentical(expected: expected, actual: exception.Errors);
     }
 
