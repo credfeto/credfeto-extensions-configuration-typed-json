@@ -122,7 +122,9 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     public void SimpleObjectWithOnePropertyInvalidSettings()
     {
         ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(
-            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty }, sectionKey: "banana", new SimpleObjectWithOneStringPropertyValidator()));
+            () => GetSetting(new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty },
+                             sectionKey: "banana",
+                             new SimpleObjectWithOneStringPropertyValidator()));
 
         IReadOnlyList<ValidationFailure> expected =
         [
