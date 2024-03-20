@@ -9,17 +9,20 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- Dependencies - Updated coverlet to 6.0.2
-- SDK - Updated DotNet SDK to 8.0.203
-- Dependencies - Updated Meziantou.Analyzer to 2.0.146
-- Dependencies - Updated Roslynator.Analyzers to 4.12.0
-- Dependencies - Updated FunFair.CodeAnalysis to 7.0.11.311
 ### Removed
 ### Deployment Changes
 
 <!--
 Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
 -->
+## [1.0.33] - 2024-03-20
+### Changed
+- Dependencies - Updated coverlet to 6.0.2
+- SDK - Updated DotNet SDK to 8.0.203
+- Dependencies - Updated Meziantou.Analyzer to 2.0.146
+- Dependencies - Updated Roslynator.Analyzers to 4.12.0
+- Dependencies - Updated FunFair.CodeAnalysis to 7.0.11.311
+
 ## [1.0.32] - 2024-03-12
 ### Changed
 - Dependencies - Updated FunFair.CodeAnalysis to 7.0.10.303
