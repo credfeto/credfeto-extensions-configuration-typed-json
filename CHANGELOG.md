@@ -14,6 +14,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated FunFair.Test.Common to 6.1.49.427
 - Dependencies - Updated CSharpIsNullAnalyzer to 0.1.593
 - Dependencies - Updated FunFair.CodeAnalysis to 7.0.23.533
+- Dependencies - Updated Meziantou.Analyzer to 2.0.168
 ### Removed
 ### Deployment Changes
 
