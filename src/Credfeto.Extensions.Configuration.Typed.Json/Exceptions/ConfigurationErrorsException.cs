@@ -17,21 +17,21 @@ public sealed class ConfigurationErrorsException : Exception
     public ConfigurationErrorsException()
         : this("Configuration is invalid")
     {
-        this.Errors = Array.Empty<ValidationFailure>();
+        this.Errors = [];
     }
 
     [SuppressMessage(category: "ReSharper", checkId: "UnusedMember.Global", Justification = "Standard exception constructor")]
     public ConfigurationErrorsException(string? message)
         : base(message)
     {
-        this.Errors = Array.Empty<ValidationFailure>();
+        this.Errors = [];
     }
 
     [SuppressMessage(category: "ReSharper", checkId: "UnusedMember.Global", Justification = "Standard exception constructor")]
     public ConfigurationErrorsException(string? message, Exception? innerException)
         : base(message: message, innerException: innerException)
     {
-        this.Errors = Array.Empty<ValidationFailure>();
+        this.Errors = [];
     }
 
     [SuppressMessage(category: "ReSharper", checkId: "UnusedMember.Global", Justification = "Used buy clients")]
