@@ -13,6 +13,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - SDK - Updated DotNet SDK to 8.0.204
 - Dependencies - Updated FunFair.CodeAnalysis to 7.0.13.341
 - Dependencies - Updated FunFair.Test.Common to 6.1.49.427
+- Dependencies - Updated CSharpIsNullAnalyzer to 0.1.593
 ### Removed
 ### Deployment Changes
 
