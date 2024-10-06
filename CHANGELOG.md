@@ -10,6 +10,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Fixed
 ### Changed
 - Dependencies - Updated Meziantou.Analyzer to 2.0.169
+- Dependencies - Updated Roslynator.Analyzers to 4.12.7
 ### Removed
 ### Deployment Changes
 
