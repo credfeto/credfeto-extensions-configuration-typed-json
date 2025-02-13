@@ -4,4 +4,4 @@ using FluentValidation;
 namespace Credfeto.Extensions.Configuration.Typed.Json.Tests.TestValidators;
 
 public sealed class SimpleObjectWithOneBooleanPropertyValidator
-    : AbstractValidator<SimpleObjectWithOneBooleanProperty> {}
+    : AbstractValidator<SimpleObjectWithOneBooleanProperty> { }

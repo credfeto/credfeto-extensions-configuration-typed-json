@@ -25,4 +25,4 @@ namespace Credfeto.Extensions.Configuration.Typed.Json.Tests.TestSerizlizationCo
 [JsonSerializable(typeof(SimpleObjectWithOneInt64Property))]
 [JsonSerializable(typeof(SimpleObjectWithOneUInt64Property))]
 [JsonSerializable(typeof(SimpleObjectWithArrayOfStrings))]
-internal sealed partial class TestConfigurationSerializationContext : JsonSerializerContext {}
+internal sealed partial class TestConfigurationSerializationContext : JsonSerializerContext { }
