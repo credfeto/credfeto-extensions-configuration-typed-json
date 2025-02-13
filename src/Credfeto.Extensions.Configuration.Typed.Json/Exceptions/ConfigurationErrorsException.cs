@@ -13,27 +13,43 @@ public sealed class ConfigurationErrorsException : Exception
         this.Errors = errors;
     }
 
-    [SuppressMessage(category: "ReSharper", checkId: "UnusedMember.Global", Justification = "Standard exception constructor")]
+    [SuppressMessage(
+        category: "ReSharper",
+        checkId: "UnusedMember.Global",
+        Justification = "Standard exception constructor"
+    )]
     public ConfigurationErrorsException()
         : this("Configuration is invalid")
     {
         this.Errors = [];
     }
 
-    [SuppressMessage(category: "ReSharper", checkId: "UnusedMember.Global", Justification = "Standard exception constructor")]
+    [SuppressMessage(
+        category: "ReSharper",
+        checkId: "UnusedMember.Global",
+        Justification = "Standard exception constructor"
+    )]
     public ConfigurationErrorsException(string? message)
         : base(message)
     {
         this.Errors = [];
     }
 
-    [SuppressMessage(category: "ReSharper", checkId: "UnusedMember.Global", Justification = "Standard exception constructor")]
+    [SuppressMessage(
+        category: "ReSharper",
+        checkId: "UnusedMember.Global",
+        Justification = "Standard exception constructor"
+    )]
     public ConfigurationErrorsException(string? message, Exception? innerException)
         : base(message: message, innerException: innerException)
     {
         this.Errors = [];
     }
 
-    [SuppressMessage(category: "ReSharper", checkId: "UnusedMember.Global", Justification = "Used buy clients")]
+    [SuppressMessage(
+        category: "ReSharper",
+        checkId: "UnusedMember.Global",
+        Justification = "Used buy clients"
+    )]
     public IReadOnlyList<ValidationFailure> Errors { get; }
 }
