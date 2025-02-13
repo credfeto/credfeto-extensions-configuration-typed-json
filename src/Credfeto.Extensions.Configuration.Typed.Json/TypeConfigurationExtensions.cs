@@ -99,8 +99,7 @@ public static class TypeConfigurationExtensions
     {
         using (new JsonObjectWriter(writer))
         {
-            IReadOnlyList<IConfigurationSection> children = config.GetChildren()
-                                                                  .ToArray();
+            IReadOnlyList<IConfigurationSection> children = [..config.GetChildren()];
 
             foreach (IConfigurationSection section in children)
             {
@@ -142,8 +141,7 @@ public static class TypeConfigurationExtensions
     {
         using (new JsonArrayWriter(writer))
         {
-            IReadOnlyList<IConfigurationSection> children = config.GetChildren()
-                                                                  .ToArray();
+            IReadOnlyList<IConfigurationSection> children = [..config.GetChildren()];
 
             foreach (IConfigurationSection section in children)
             {
