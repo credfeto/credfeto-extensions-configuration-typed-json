@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Credfeto.Extensions.Configuration.Typed.Json.Exceptions;
@@ -24,10 +24,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     public void SimpleObjectWithOneStringPropertyIsValid()
     {
         IOptions<SimpleObjectWithOneStringProperty> configuration = GetSetting(
-            new Dictionary<string, string?>(StringComparer.Ordinal)
-            {
-                ["banana:name"] = "Qwertyuiop",
-            },
+            new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = "Qwertyuiop" },
             sectionKey: "banana",
             new SimpleObjectWithOneStringPropertyValidator()
         );
@@ -51,10 +48,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     public void SimpleObjectWithOneNullableStringPropertyIsValidString()
     {
         IOptions<SimpleObjectWithOneNullableStringProperty> configuration = GetSetting(
-            new Dictionary<string, string?>(StringComparer.Ordinal)
-            {
-                ["banana:name"] = "Qwertyuiop",
-            },
+            new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = "Qwertyuiop" },
             sectionKey: "banana",
             new SimpleObjectWithOneNullableStringPropertyValidator()
         );
@@ -66,28 +60,19 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     public void SimpleObjectWithOneBooleanPropertyIsValid()
     {
         IOptions<SimpleObjectWithOneBooleanProperty> configuration = GetSetting(
-            new Dictionary<string, string?>(StringComparer.Ordinal)
-            {
-                ["banana:expected"] = "true",
-            },
+            new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:expected"] = "true" },
             sectionKey: "banana",
             new SimpleObjectWithOneBooleanPropertyValidator()
         );
 
-        Assert.True(
-            condition: configuration.Value.Expected,
-            userMessage: "Configuration should be true"
-        );
+        Assert.True(condition: configuration.Value.Expected, userMessage: "Configuration should be true");
     }
 
     [Fact]
     public void SimpleObjectWithOneDecimalPropertyIsValid()
     {
         IOptions<SimpleObjectWithOneDecimalProperty> configuration = GetSetting(
-            new Dictionary<string, string?>(StringComparer.Ordinal)
-            {
-                ["banana:expected"] = "1.42",
-            },
+            new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:expected"] = "1.42" },
             sectionKey: "banana",
             new SimpleObjectWithOneDecimalPropertyValidator()
         );
@@ -151,16 +136,12 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     [Fact]
     public void SimpleObjectWithOnePropertyInvalidSettings()
     {
-        ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(
-            () =>
-                GetSetting(
-                    new Dictionary<string, string?>(StringComparer.Ordinal)
-                    {
-                        ["banana:name"] = string.Empty,
-                    },
-                    sectionKey: "banana",
-                    new SimpleObjectWithOneStringPropertyValidator()
-                )
+        ConfigurationErrorsException exception = Assert.Throws<ConfigurationErrorsException>(() =>
+            GetSetting(
+                new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:name"] = string.Empty },
+                sectionKey: "banana",
+                new SimpleObjectWithOneStringPropertyValidator()
+            )
         );
 
         IReadOnlyList<ValidationFailure> expected =
@@ -170,22 +151,15 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
         this.AssertIdentical(expected: expected, actual: exception.Errors);
     }
 
-    private void AssertIdentical(
-        IReadOnlyList<ValidationFailure> expected,
-        IReadOnlyList<ValidationFailure> actual
-    )
+    private void AssertIdentical(IReadOnlyList<ValidationFailure> expected, IReadOnlyList<ValidationFailure> actual)
     {
         Assert.Equal(expected: expected.Count, actual: actual.Count);
 
         for (int i = 0; i < expected.Count; i++)
         {
             this.Output.WriteLine($"* Item {i}:");
-            this.Output.WriteLine(
-                $"-> Name: {expected[i].PropertyName} <> {actual[i].PropertyName}"
-            );
-            this.Output.WriteLine(
-                $"-> Message: {expected[i].ErrorMessage} <> {actual[i].ErrorMessage}"
-            );
+            this.Output.WriteLine($"-> Name: {expected[i].PropertyName} <> {actual[i].PropertyName}");
+            this.Output.WriteLine($"-> Message: {expected[i].ErrorMessage} <> {actual[i].ErrorMessage}");
             Assert.Equal(expected: expected[i].ErrorMessage, actual: actual[i].ErrorMessage);
             Assert.Equal(expected: expected[i].PropertyName, actual: actual[i].PropertyName);
         }
@@ -204,9 +178,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
             validator: validator
         );
 
-        IOptions<TConfigurationType> configuration = serviceProvider.GetRequiredService<
-            IOptions<TConfigurationType>
-        >();
+        IOptions<TConfigurationType> configuration = serviceProvider.GetRequiredService<IOptions<TConfigurationType>>();
         Assert.NotNull(configuration.Value);
 
         return configuration;
@@ -219,9 +191,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     )
         where TConfigurationType : class
     {
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(settings)
-            .Build();
+        IConfigurationRoot configuration = new ConfigurationBuilder().AddInMemoryCollection(settings).Build();
 
         JsonSerializerContext jsonSerializerContext = TestConfigurationSerializationContext.Default;
 
@@ -240,10 +210,7 @@ public sealed class TypeConfigurationExtensionsTests : LoggingTestBase
     public void SimpleObjectWithArrayOfStringsIsValid()
     {
         IOptions<SimpleObjectWithArrayOfStrings> configuration = GetSetting(
-            new Dictionary<string, string?>(StringComparer.Ordinal)
-            {
-                ["banana:items:0"] = "Qwertyuiop",
-            },
+            new Dictionary<string, string?>(StringComparer.Ordinal) { ["banana:items:0"] = "Qwertyuiop" },
             sectionKey: "banana",
             new SimpleObjectWithArrayOfStringsValidator()
         );
