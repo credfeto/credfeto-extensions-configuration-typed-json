@@ -20,8 +20,7 @@ public static class TypeConfigurationExtensions
 {
     public static IServiceCollection WithConfiguration<
         TValidator,
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
-            TSettings
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TSettings
     >(
         this IServiceCollection services,
         IConfigurationRoot configurationRoot,
@@ -50,9 +49,7 @@ public static class TypeConfigurationExtensions
     {
         return services.RegisterOptions(
             settings: DeserializeSettings(
-                    configurationRoot
-                        .GetSection(key)
-                        .ToJson(jsonSerializerOptions: jsonSerializerContext.Options),
+                    configurationRoot.GetSection(key).ToJson(jsonSerializerOptions: jsonSerializerContext.Options),
                     jsonSerializerContext.GetSerializerTypeInfo<TSettings>()
                 )
                 .Validate(validator: validator)
@@ -73,10 +70,7 @@ public static class TypeConfigurationExtensions
         checkId: "FFS0008: Don't disable warnings with #pragma",
         Justification = "Constructor has been called already and is passed to method"
     )]
-    private static IServiceCollection RegisterOptions<TSettings>(
-        this IServiceCollection services,
-        TSettings settings
-    )
+    private static IServiceCollection RegisterOptions<TSettings>(this IServiceCollection services, TSettings settings)
         where TSettings : class
     {
 #pragma warning disable IL2091
@@ -85,33 +79,22 @@ public static class TypeConfigurationExtensions
     }
 
     private static IOptions<TSettings> CreateOptions<
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
-            TSettings
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TSettings
     >(TSettings settings)
         where TSettings : class
     {
         return Options.Create(settings);
     }
 
-    private static TSettings DeserializeSettings<TSettings>(
-        string result,
-        JsonTypeInfo<TSettings> typeInfo
-    )
+    private static TSettings DeserializeSettings<TSettings>(string result, JsonTypeInfo<TSettings> typeInfo)
         where TSettings : class
     {
         return JsonSerializer.Deserialize(json: result, jsonTypeInfo: typeInfo)
             ?? ExceptionHelpers.RaiseCouldNotDeserialize<TSettings>();
     }
 
-    [SuppressMessage(
-        category: "Meziantou.Analyzer",
-        checkId: "MA0045:Use Async",
-        Justification = "Not required here"
-    )]
-    private static TSettings Validate<TSettings>(
-        this TSettings settings,
-        IValidator<TSettings> validator
-    )
+    [SuppressMessage(category: "Meziantou.Analyzer", checkId: "MA0045:Use Async", Justification = "Not required here")]
+    private static TSettings Validate<TSettings>(this TSettings settings, IValidator<TSettings> validator)
         where TSettings : class
     {
         ValidationResult validationResult = validator.Validate(settings);
@@ -121,15 +104,8 @@ public static class TypeConfigurationExtensions
             : ExceptionHelpers.RaiseConfigurationErrors<TSettings>(validationResult);
     }
 
-    [SuppressMessage(
-        category: "Meziantou.Analyzer",
-        checkId: "MA0045:Use Async",
-        Justification = "Not required here"
-    )]
-    private static string ToJson(
-        this IConfigurationSection section,
-        JsonSerializerOptions jsonSerializerOptions
-    )
+    [SuppressMessage(category: "Meziantou.Analyzer", checkId: "MA0045:Use Async", Justification = "Not required here")]
+    private static string ToJson(this IConfigurationSection section, JsonSerializerOptions jsonSerializerOptions)
     {
         ArrayBufferWriter<byte> bufferWriter = new(jsonSerializerOptions.DefaultBufferSize);
 
@@ -145,10 +121,7 @@ public static class TypeConfigurationExtensions
             )
         )
         {
-            section.SerializeObject(
-                writer: jsonWriter,
-                jsonSerializerOptions: jsonSerializerOptions
-            );
+            section.SerializeObject(writer: jsonWriter, jsonSerializerOptions: jsonSerializerOptions);
         }
 
         return Encoding.UTF8.GetString(bufferWriter.WrittenSpan);
@@ -166,11 +139,7 @@ public static class TypeConfigurationExtensions
 
             foreach (IConfigurationSection section in children)
             {
-                SerialiseSection(
-                    section: section,
-                    writer: writer,
-                    jsonSerializerOptions: jsonSerializerOptions
-                );
+                SerialiseSection(section: section, writer: writer, jsonSerializerOptions: jsonSerializerOptions);
             }
         }
     }
@@ -192,26 +161,17 @@ public static class TypeConfigurationExtensions
             );
         }
 
-        writer.WritePropertyName(
-            ConvertName(jsonSerializerOptions: jsonSerializerOptions, name: section.Key)
-        );
+        writer.WritePropertyName(ConvertName(jsonSerializerOptions: jsonSerializerOptions, name: section.Key));
 
         if (firstChild is not null)
         {
             if (IsFirstArrayElement(firstChild))
             {
-                SerialiseArray(
-                    config: section,
-                    writer: writer,
-                    jsonSerializerOptions: jsonSerializerOptions
-                );
+                SerialiseArray(config: section, writer: writer, jsonSerializerOptions: jsonSerializerOptions);
             }
             else
             {
-                section.SerializeObject(
-                    writer: writer,
-                    jsonSerializerOptions: jsonSerializerOptions
-                );
+                section.SerializeObject(writer: writer, jsonSerializerOptions: jsonSerializerOptions);
             }
         }
         else
@@ -234,10 +194,7 @@ public static class TypeConfigurationExtensions
             {
                 if (section.GetChildren().Any())
                 {
-                    section.SerializeObject(
-                        writer: writer,
-                        jsonSerializerOptions: jsonSerializerOptions
-                    );
+                    section.SerializeObject(writer: writer, jsonSerializerOptions: jsonSerializerOptions);
                 }
                 else
                 {
