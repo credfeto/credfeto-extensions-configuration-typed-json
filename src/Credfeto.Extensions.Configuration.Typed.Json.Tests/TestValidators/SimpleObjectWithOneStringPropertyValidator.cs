@@ -3,8 +3,7 @@ using FluentValidation;
 
 namespace Credfeto.Extensions.Configuration.Typed.Json.Tests.TestValidators;
 
-public sealed class SimpleObjectWithOneStringPropertyValidator
-    : AbstractValidator<SimpleObjectWithOneStringProperty>
+public sealed class SimpleObjectWithOneStringPropertyValidator : AbstractValidator<SimpleObjectWithOneStringProperty>
 {
     public SimpleObjectWithOneStringPropertyValidator()
     {
