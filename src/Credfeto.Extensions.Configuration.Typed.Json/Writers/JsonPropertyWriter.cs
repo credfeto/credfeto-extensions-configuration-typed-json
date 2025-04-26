@@ -135,10 +135,7 @@ internal static class JsonPropertyWriter
         writer.WriteStringValue(value: configItem.Value);
     }
 
-    private static bool WriteTypedProperties(
-        IConfigurationSection configItem,
-        Utf8JsonWriter writer
-    )
+    private static bool WriteTypedProperties(IConfigurationSection configItem, Utf8JsonWriter writer)
     {
         return WriteNullValue(configItem: configItem, writer: writer)
             || WriteBooleanValue(configItem: configItem, writer: writer)
