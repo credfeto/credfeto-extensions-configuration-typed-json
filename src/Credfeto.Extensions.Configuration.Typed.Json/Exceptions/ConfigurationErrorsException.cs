@@ -46,10 +46,6 @@ public sealed class ConfigurationErrorsException : Exception
         this.Errors = [];
     }
 
-    [SuppressMessage(
-        category: "ReSharper",
-        checkId: "UnusedMember.Global",
-        Justification = "Used buy clients"
-    )]
+    [SuppressMessage(category: "ReSharper", checkId: "UnusedMember.Global", Justification = "Used buy clients")]
     public IReadOnlyList<ValidationFailure> Errors { get; }
 }
