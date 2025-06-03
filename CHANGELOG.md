@@ -10,6 +10,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Fixed
 ### Changed
 - Dependencies - Updated Credfeto.Enumeration to 1.2.102.1190
+- Dependencies - Updated FluentValidation to 11.3.1
 ### Removed
 ### Deployment Changes
 
