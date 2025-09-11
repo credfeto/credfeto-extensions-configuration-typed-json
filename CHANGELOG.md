@@ -9,6 +9,14 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
+### Removed
+### Deployment Changes
+
+<!--
+Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
+-->
+## [1.0.164] - 2025-09-11
+### Changed
 - Dependencies - Updated xunit.analyzers to 1.24.0
 - Dependencies - Updated xunit.v3 to 3.0.1
 - Dependencies - Updated Philips.CodeAnalysis.MaintainabilityAnalyzers to 1.9.1
@@ -16,12 +24,7 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 - Dependencies - Updated Meziantou.Analyzer to 2.0.215
 - Dependencies - Updated Microsoft.Sbom.Targets to 4.1.2
 - SDK - Updated DotNet SDK to 9.0.305
-### Removed
-### Deployment Changes
 
-<!--
-Releases that have at least been deployed to staging, BUT NOT necessarily released to live.  Changes should be moved from [Unreleased] into here as they are merged into the appropriate release branch
--->
 ## [1.0.163] - 2025-08-12
 ### Changed
 - Dependencies - Updated FunFair.CodeAnalysis to 7.1.21.1364
