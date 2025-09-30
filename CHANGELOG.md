@@ -9,8 +9,8 @@ Please ADD ALL Changes to the UNRELEASED SECTION and not a specific release
 ### Added
 ### Fixed
 ### Changed
-- Dependencies - Updated Meziantou.Analyzer to 2.0.221
 - Dependencies - Updated xunit.v3 to 3.1.0
+- Dependencies - Updated Meziantou.Analyzer to 2.0.222
 ### Removed
 ### Deployment Changes
 
